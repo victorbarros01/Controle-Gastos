@@ -1,0 +1,16 @@
+﻿@model ProjetoAspNet.Models.User
+@{
+    ViewData["Title"] = "VerifyEmail";
+}
+
+<h1>VerifyEmail</h1>
+
+
+@using(Html.BeginForm("VerifyEmail", "Users", FormMethod.Post))
+{
+    <h1>Insira o código</h1>  
+    <input id="code" value="" name="code" type="text" class="form-control" />
+    <input type="submit" class="btn btn-info" />
+}
+
+
