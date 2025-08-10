@@ -77,23 +77,30 @@ namespace ProjetoAspNet.Controllers {
         public async Task<IActionResult> VerifyEmail() {
 
             var id = TempData["UserId"];
+
+            ViewBag.UserId = id;
             var user = await _context.Users.FindAsync(id);
             if (user != null) {
-                var sendEmail = new SendCodeInEmailService(user.Email, user.Code);
-                await sendEmail.SendEmailAsync();
+                SendEmail(user.Email, user.Code);
+                return View();
             }
 
-            return View();
+            return RedirectToAction(nameof(SignUp));
 
         }
 
+        private async void SendEmail(string email, int code) {
+            var sendEmail = new SendCodeInEmailService(email, code);
+            await sendEmail.SendEmailAsync();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> VerifyEmail(int code) {
-            var id = TempData["UserId"];
+        public async Task<IActionResult> VerifyEmail(int code, int id) {
             var user = await _context.Users.FindAsync(id);
 
             if (user != null && ModelState.IsValid) {
                 var count = 0;
+                var validEmail = VerifyEmailService.VerifyEmail(code, user.Code);
 
                 if (count >= 3) {
                     _context.Users.Remove(user);
@@ -102,7 +109,7 @@ namespace ProjetoAspNet.Controllers {
                     return RedirectToAction(nameof(SignUp));
                 } else {
                     //Comparar código pra válidar a conta
-                    if (code == user.Code) {
+                    if (validEmail == true) {
                         return RedirectToAction(nameof(Login));
                     } else {
                         ++count;

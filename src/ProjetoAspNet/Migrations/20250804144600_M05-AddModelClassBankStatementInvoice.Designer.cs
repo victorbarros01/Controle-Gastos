@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoAspNet.Data;
 
@@ -11,9 +12,11 @@ using ProjetoAspNet.Data;
 namespace ProjetoAspNet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250804144600_M05-AddModelClassBankStatementInvoice")]
+    partial class M05AddModelClassBankStatementInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,30 +25,48 @@ namespace ProjetoAspNet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjetoAspNet.Models.BankExpenseItem", b =>
+            modelBuilder.Entity("ProjetoAspNet.Models.BankInvoiceItem", b =>
                 {
-                    b.Property<int>("IdBankExpenseItem")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBankExpenseItem"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ExpenseType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Installments")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDivided")
+                    b.Property<bool>("IsEntrance")
                         .HasColumnType("bit");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BankInvoiceItems");
+                });
+
+            modelBuilder.Entity("ProjetoAspNet.Models.BankStatementItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsEntrance")
                         .HasColumnType("bit");
@@ -56,57 +77,9 @@ namespace ProjetoAspNet.Migrations
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
-                    b.HasKey("IdBankExpenseItem");
+                    b.HasKey("Id");
 
-                    b.ToTable("BankExpenseItems");
-                });
-
-            modelBuilder.Entity("ProjetoAspNet.Models.Earning", b =>
-                {
-                    b.Property<int>("IdEarning")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEarning"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("IsFixed")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
-
-                    b.HasKey("IdEarning");
-
-                    b.ToTable("Earnings");
-                });
-
-            modelBuilder.Entity("ProjetoAspNet.Models.Expense", b =>
-                {
-                    b.Property<int>("IdExpense")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdExpense"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("IsFixed")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
-
-                    b.HasKey("IdExpense");
-
-                    b.ToTable("Expenses");
+                    b.ToTable("BankStatementItems");
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.TaskGroup", b =>
