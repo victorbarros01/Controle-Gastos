@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoAspNet.Models {
-    [Table("TasksGroup")]
+    [Table("TaskGroup")]
     public class TaskGroup {
         [Key]
         public int TaskId { get; set; }

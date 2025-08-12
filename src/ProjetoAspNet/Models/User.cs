@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoAspNet.Models {
-    [Table("Users")]
+    [Table("User")]
     public class User {
 
         [Key]

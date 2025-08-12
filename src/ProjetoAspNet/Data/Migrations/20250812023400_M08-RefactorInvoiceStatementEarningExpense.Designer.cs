@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoAspNet.Data;
 
@@ -11,9 +12,11 @@ using ProjetoAspNet.Data;
 namespace ProjetoAspNet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250812023400_M08-RefactorInvoiceStatementEarningExpense")]
+    partial class M08RefactorInvoiceStatementEarningExpense
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,13 +25,16 @@ namespace ProjetoAspNet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjetoAspNet.Models.BankExpenseItem", b =>
+            modelBuilder.Entity("ProjetoAspNet.Models.BankExpense.Invoice", b =>
                 {
-                    b.Property<int>("IdBankExpenseItem")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBankExpenseItem"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -37,9 +43,6 @@ namespace ProjetoAspNet.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("ExpenseType")
-                        .HasColumnType("int");
 
                     b.Property<int>("Installments")
                         .HasColumnType("int");
@@ -50,24 +53,51 @@ namespace ProjetoAspNet.Migrations
                     b.Property<bool>("IsEntrance")
                         .HasColumnType("bit");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Invoice");
+                });
+
+            modelBuilder.Entity("ProjetoAspNet.Models.BankExpense.Statement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsEntrance")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdBankExpenseItem");
-
-                    b.ToTable("BankExpenseItems");
+                    b.ToTable("Statement");
                 });
 
-            modelBuilder.Entity("ProjetoAspNet.Models.Earning", b =>
+            modelBuilder.Entity("ProjetoAspNet.Models.Expense_Management.Earning", b =>
                 {
-                    b.Property<int>("IdEarning")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEarning"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -77,21 +107,21 @@ namespace ProjetoAspNet.Migrations
                     b.Property<bool>("IsFixed")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdEarning");
-
-                    b.ToTable("Earnings");
+                    b.ToTable("Earning");
                 });
 
-            modelBuilder.Entity("ProjetoAspNet.Models.Expense", b =>
+            modelBuilder.Entity("ProjetoAspNet.Models.Expense_Management.Expense", b =>
                 {
-                    b.Property<int>("IdExpense")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdExpense"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -101,12 +131,9 @@ namespace ProjetoAspNet.Migrations
                     b.Property<bool>("IsFixed")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdExpense");
-
-                    b.ToTable("Expenses");
+                    b.ToTable("Expense");
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.TaskGroup", b =>
@@ -137,7 +164,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TasksGroup");
+                    b.ToTable("TaskGroup");
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.User", b =>
@@ -176,7 +203,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.TaskGroup", b =>

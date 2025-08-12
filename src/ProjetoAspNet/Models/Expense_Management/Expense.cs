@@ -2,15 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProjetoAspNet.Models {
+namespace ProjetoAspNet.Models.Expense_Management {
 
-    [Table("Expenses")]
-    public class Expense {
+    [Table("Expense")]
+    public class Expense{
+
         [Key]
-        public int IdExpense { get; set; }
+        public int Id{ get; set; }
 
         [Required]
-        public double Value { get; set; }
+        public double Amount { get; set; }
 
         [Required]
         [MaxLength(200)]
@@ -19,10 +20,10 @@ namespace ProjetoAspNet.Models {
         [Required]
         public bool IsFixed { get; set; } // É um gasto fixo ? Sim ; Não é um gasto variavél.
 
-        public Expense(double value, string description, bool isFixed) {
-            Value = value;
+        public Expense(double amount, string description, bool isFixed) {
+            Amount = amount;
             Description = description;
-            IsFixed = isFixed;            
+            IsFixed = isFixed;
         }
 
 
