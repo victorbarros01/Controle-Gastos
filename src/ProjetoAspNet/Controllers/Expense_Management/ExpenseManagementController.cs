@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjetoAspNet.Data;
 using ProjetoAspNet.Models.Expense_Management;
 using System.Data;
@@ -12,9 +13,9 @@ namespace ProjetoAspNet.Controllers.Expense_Management {
 
 
         [HttpGet]
-        public IActionResult Index() {
-            ViewData["Earnings"] = _context.Earnings.ToList();
-            ViewData["Expenses"] = _context.Expenses.ToList();
+        public async Task<IActionResult> Index() {
+            ViewBag.Earnings = await _context.Earnings.ToListAsync();
+            ViewBag.Expenses = await _context.Expenses.ToListAsync();
             
             return View();
             // Trazer A lógica para exibir as despesas os ganhos e o saldo.

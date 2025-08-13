@@ -1,5 +1,67 @@
-﻿
+﻿@model ProjetoAspNet.Models.Expense_Management.Expense
 @{
-    var earnings = ViewData["Earnings"];
-    var exponses = ViewData["Exponses"];
+    var earnings = ViewBag.Earnings;
+    var expenses = ViewBag.Expenses;
 }
+<section class="grid grid-template">
+    <div class="container-dashboard">
+        dashboard
+    </div>
+
+    <div class="container-expenses">
+        <h1>Principais Gastos</h1>
+        <table class="content-expenses">
+            <tr>
+                <th>Item 1</th>
+                <td>Valor</td>                           
+            </tr>
+            <tr>
+                <th>Item 2</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 3</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 4</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 5</th>
+                <td>Valor</td>
+            </tr>
+            
+        </table>
+    </div>
+
+    <div class="container-earnings">
+        <h1>Principais Ganhos</h1>
+        <table class="content-earnings">
+            <tr>
+                <th>Item 1</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 2</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 3</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 4</th>
+                <td>Valor</td>
+            </tr>
+            <tr>
+                <th>Item 5</th>
+                <td>Valor</td>
+            </tr>
+
+    </div>
+
+    <div class="container-remaider">
+        remaider
+    </div>
+</section>
