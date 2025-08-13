@@ -17,6 +17,12 @@ namespace ProjetoAspNet.Models.Expense_Management {
 
         [Required]
         public bool IsFixed { get; set; } // É um gasto fixo ? Sim ; Não é um gasto variavél.
+
+        public Earning() {
+            Description = string.Empty;
+            Amount = 0;
+            IsFixed = false;
+        }
         public Earning(double amount, string description, bool isFixed) {
             Amount = amount;
             Description = description;

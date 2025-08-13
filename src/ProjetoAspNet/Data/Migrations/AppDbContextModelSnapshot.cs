@@ -52,7 +52,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Invoice");
+                    b.ToTable("Invoice", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.BankExpense.Statement", b =>
@@ -82,7 +82,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statement");
+                    b.ToTable("Statement", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.Expense_Management.Earning", b =>
@@ -106,7 +106,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Earning");
+                    b.ToTable("Earning", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.Expense_Management.Expense", b =>
@@ -130,7 +130,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expense");
+                    b.ToTable("Expense", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.TaskGroup", b =>
@@ -161,7 +161,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TaskGroup");
+                    b.ToTable("TaskGroup", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.User", b =>
@@ -200,7 +200,7 @@ namespace ProjetoAspNet.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("ProjetoAspNet.Models.TaskGroup", b =>

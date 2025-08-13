@@ -25,6 +25,14 @@ namespace ProjetoAspNet.Models.BankExpense {
         [Required]
         public PaymentMethods PaymentMethod { get; set; }
 
+        public Statement() 
+        {
+            Description = string.Empty;
+            Amount = 0;
+            IsEntrance = false;
+            Date = DateTime.Now;
+            PaymentMethod = PaymentMethods.Pix; 
+        }
         public Statement(double amount, string description, bool isEntrance, DateTime date, PaymentMethods paymentMethod) 
         {
             Amount = amount;

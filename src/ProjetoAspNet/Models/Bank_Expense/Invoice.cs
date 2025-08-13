@@ -26,6 +26,15 @@ namespace ProjetoAspNet.Models.BankExpense {
 
         public int Installments { get; set; } // Quantidade de parcelas
 
+        public Invoice()
+        {
+            Description = string.Empty;
+            Amount = 0;
+            IsEntrance = false;
+            Date = DateTime.Now;
+            IsDivided = false; 
+            Installments = 1; 
+        }
         public Invoice(double amount, string description, bool isEntrance, DateTime date, bool isDivided, int installments)
         {
             Amount = amount;

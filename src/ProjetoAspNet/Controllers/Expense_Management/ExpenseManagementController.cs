@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjetoAspNet.Data;
 using ProjetoAspNet.Models.Expense_Management;
+using ProjetoAspNet.ViewModel;
 using System.Data;
 
 namespace ProjetoAspNet.Controllers.Expense_Management {
@@ -14,10 +15,31 @@ namespace ProjetoAspNet.Controllers.Expense_Management {
 
         [HttpGet]
         public async Task<IActionResult> Index() {
-            ViewBag.Earnings = await _context.Earnings.ToListAsync();
-            ViewBag.Expenses = await _context.Expenses.ToListAsync();
+            var expenseManagementListVM = new List<ExpenseManagementViewModel>();
             
-            return View();
+            var expenses = await _context.Expenses.ToListAsync();
+            foreach (var ep in expenses) {
+                var expenseVM = new ExpenseManagementViewModel {
+                    IdExpense = ep.Id,
+                    AmountExpense = ep.Amount,
+                    DescriptionExpense = ep.Description,
+                    IsFixedExpense = ep.IsFixed
+                };                
+                expenseManagementListVM.Add(expenseVM);
+            }
+
+            var earnings = await _context.Earnings.ToListAsync();
+            foreach (var er in earnings) {
+                var earningVM = new ExpenseManagementViewModel {
+                    IdEarning = er.Id,
+                    AmountEarning = er.Amount,
+                    DescriptionEarning = er.Description,
+                    IsFixedEarning = er.IsFixed
+                };
+                expenseManagementListVM.Add(earningVM);
+            }
+
+            return View(expenseManagementListVM);
             // Trazer A lógica para exibir as despesas os ganhos e o saldo.
         }
 
