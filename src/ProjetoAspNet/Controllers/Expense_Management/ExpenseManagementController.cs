@@ -20,7 +20,7 @@ namespace ProjetoAspNet.Controllers.Expense_Management {
             var expenses = await _context.Expenses.ToListAsync();
             foreach (var ep in expenses) {
                 var expenseVM = new ExpenseManagementViewModel {
-                    IdExpense = ep.Id,
+                    
                     AmountExpense = ep.Amount,
                     DescriptionExpense = ep.Description,
                     IsFixedExpense = ep.IsFixed
@@ -31,7 +31,7 @@ namespace ProjetoAspNet.Controllers.Expense_Management {
             var earnings = await _context.Earnings.ToListAsync();
             foreach (var er in earnings) {
                 var earningVM = new ExpenseManagementViewModel {
-                    IdEarning = er.Id,
+                    
                     AmountEarning = er.Amount,
                     DescriptionEarning = er.Description,
                     IsFixedEarning = er.IsFixed
@@ -75,6 +75,36 @@ namespace ProjetoAspNet.Controllers.Expense_Management {
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+
+        [HttpPost] // Metodo de rota nulo pois não irá retornar tela e irá apenas apagar o item ao selecionar em um modal, sendo função do front a parte de "redirecionar" a orientação de tela
+        public async void DeleteExpense(int id) {
+            var expense = await _context.Expenses.FindAsync(id);
+            if(ModelState.IsValid){
+                if (expense != null) {
+                    _context.Expenses.Remove(expense);
+                    await _context.SaveChangesAsync();
+                } else {
+                    throw new Exception("expense é nulo");
+                }
+            } else {
+               throw new Exception("Erro no ModelState");
+            }
+        }
+
+        [HttpPost] // Metodo de rota nulo pois não irá retornar tela e irá apenas apagar o item ao selecionar em um modal, sendo função do front a parte de "redirecionar" a orientação de tela
+        public async void DeleteEarning(int id) {
+            var earning = await _context.Earnings.FindAsync(id);
+            if (ModelState.IsValid) {
+                if (earning != null) {
+                    _context.Earnings.Remove(earning);
+                    await _context.SaveChangesAsync();
+                } else {
+                    throw new Exception("expense é nulo");
+                }
+            } else {
+                throw new Exception("Erro no ModelState");
+            }
         }
     }
 }
